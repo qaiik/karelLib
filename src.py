@@ -1,6 +1,7 @@
-x   = 0   #starting x 
-y   = 0   #starting y
-dir = 0   #starting direction
+x            = 0   #starting x 
+y            = 0   #starting y
+dir          = 0   #starting direction
+sdir         = dir #starting snapshot of dir
 
 FLAT = 0
 UP = 1
@@ -35,9 +36,17 @@ def k_set_dir(n):
     else:
         for _ in range(right_turns):
             k_turn_right()
+            
+def snapshot_dir():
+    global sdir
+    sdir = dir
+    
+def restore_dir():
+    global sdir
+    k_set_dir(sdir)
 
         
-def move_x(mvx):
+def move_x(mvx, onmove=lambda: None, beforemove=lambda: None):
     global dir
     global x
     dir_bkp = dir
@@ -46,13 +55,14 @@ def move_x(mvx):
         k_set_dir(desired_dir)
     for _ in range(abs(mvx)):
         move()
+        onmove()
         if mvx > 0:
             x += 1
         else:
             x -= 1
     # k_set_dir(dir_bkp)
     
-def move_y(mvy):
+def move_y(mvy, onmove=lambda: None, beforemove=lambda: None):
     global dir
     global y
     dir_bkp = dir
@@ -61,6 +71,7 @@ def move_y(mvy):
         k_set_dir(desired_dir)
     for _ in range(abs(mvy)):
         move()
+        onmove()
         if mvy > 0:
             y += 1
         else:
@@ -100,8 +111,8 @@ def find_max_y():
     k_set_dir(dir_bkp)
     dir = dir_bkp
     return y
+    
+def try_take_ball():
+    if balls_present():
+        take_ball()
         
-# mx = find_max_x()
-# my = find_max_y()
-# move_y(-my)
-# move_x(-mx)
