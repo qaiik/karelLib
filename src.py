@@ -1,3 +1,9 @@
+"""
+Author: Winter
+Description: python "library" to superpower karel by keeping track of x y pos on every move. can be slow
+Date: 8-14-25
+"""
+
 x            = 0   #starting x 
 y            = 0   #starting y
 dir          = 0   #starting direction
@@ -115,4 +121,3 @@ def find_max_y():
 def try_take_ball():
     if balls_present():
         take_ball()
-        
