@@ -24,36 +24,48 @@ def k_turn_right():
     k_change_dir(-1)
     turn_right()
     
-def k_set_dir(n): #find a way to determine if its faster to decrement (turn right) or increment (turn left)
-    while dir != n:
-        k_turn_left()
+def k_set_dir(n):
+    global dir
+    left_turns = (n - dir) % 4
+    right_turns = (dir - n) % 4
+
+    if left_turns <= right_turns:
+        for _ in range(left_turns):
+            k_turn_left()
+    else:
+        for _ in range(right_turns):
+            k_turn_right()
+
         
 def move_x(mvx):
     global dir
     global x
     dir_bkp = dir
-    k_set_dir(0 if mvx > 0 else 2)
-    
+    desired_dir = 0 if mvx > 0 else 2
+    if dir != desired_dir: 
+        k_set_dir(desired_dir)
     for _ in range(abs(mvx)):
         move()
         if mvx > 0:
             x += 1
         else:
             x -= 1
-    k_set_dir(dir_bkp)
+    # k_set_dir(dir_bkp)
     
 def move_y(mvy):
     global dir
     global y
     dir_bkp = dir
-    k_set_dir(1 if mvy > 0 else 3)
+    desired_dir = 1 if mvy > 0 else 3
+    if dir != desired_dir: 
+        k_set_dir(desired_dir)
     for _ in range(abs(mvy)):
         move()
         if mvy > 0:
             y += 1
         else:
             y -= 1
-    k_set_dir(dir_bkp)
+    # k_set_dir(dir_bkp)
 
 def set_x(tox):
     if x < tox:
@@ -75,6 +87,7 @@ def find_max_x():
     while front_is_clear():
         move_x(1)
     k_set_dir(dir_bkp)
+    dir = dir_bkp
     return x
 
 def find_max_y(): 
@@ -85,6 +98,7 @@ def find_max_y():
     while front_is_clear():
         move_y(1)
     k_set_dir(dir_bkp)
+    dir = dir_bkp
     return y
         
 # mx = find_max_x()
