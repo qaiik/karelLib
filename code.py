@@ -66,3 +66,15 @@ def set_y(toy):
         move_y(toy - y)
     else:
         move_y(-(y - toy))
+        
+def find_max_x(): 
+    while front_is_clear():
+        move_x(1)
+        
+def find_max_y(): 
+    global dir
+    dir_bkp = dir
+    k_set_dir(1)
+    while front_is_clear():
+        move_y(1)
+    k_set_dir(dir_bkp)
