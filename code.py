@@ -37,9 +37,9 @@ def move_x(mvx):
     for _ in range(abs(mvx)):
         move()
         if mvx > 0:
-            mvx += 1
+            x += 1
         else:
-            mvx -= 1
+            x -= 1
     k_set_dir(dir_bkp)
     
 def move_y(mvy):
@@ -50,7 +50,19 @@ def move_y(mvy):
     for _ in range(abs(mvy)):
         move()
         if mvy > 0:
-            mvy += 1
+            y += 1
         else:
-            mvy -= 1
+            y -= 1
     k_set_dir(dir_bkp)
+
+def set_x(tox):
+    if x < tox:
+        move_x(tox - x)
+    else:
+        move_x(-(x - tox))
+
+def set_y(toy):
+    if y < toy:
+        move_y(toy - y)
+    else:
+        move_y(-(y - toy))
