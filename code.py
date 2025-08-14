@@ -28,17 +28,29 @@ def k_set_dir(n): #find a way to determine if its faster to decrement (turn righ
     while dir != n:
         k_turn_left()
         
-def move_x(x):
+def move_x(mvx):
     global dir
+    global x
     dir_bkp = dir
-    k_set_dir(0 if x > 0 else 2)
-    for _ in range(abs(x)):
+    k_set_dir(0 if mvx > 0 else 2)
+    
+    for _ in range(abs(mvx)):
         move()
+        if mvx > 0:
+            mvx += 1
+        else:
+            mvx -= 1
     k_set_dir(dir_bkp)
-
-# move_x(3)
-# move_x(-3)
-
-
     
-    
+def move_y(mvy):
+    global dir
+    global y
+    dir_bkp = dir
+    k_set_dir(1 if mvy > 0 else 3)
+    for _ in range(abs(mvy)):
+        move()
+        if mvy > 0:
+            mvy += 1
+        else:
+            mvy -= 1
+    k_set_dir(dir_bkp)
